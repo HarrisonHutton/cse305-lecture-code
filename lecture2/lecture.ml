@@ -1,5 +1,3 @@
-print_string "Hello CSE305\n";;
-
 (*
 Use this program in top level by running this command:
 
