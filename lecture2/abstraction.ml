@@ -11,3 +11,10 @@ let y = 2 in
   let squared = y * y in 
     let cubed = y * squared in 
       cubed * squared;;
+
+
+let a = "a" in 
+  let b = "b" in 
+    let c = a ^ a ^ a in 
+      let d = b ^ b ^ b in 
+        c ^ d;;
