@@ -46,4 +46,10 @@ let slope (p1: point) (p2: point) : float option =
   if xd != 0.0 then 
     Some ((y2 -. y1) /. xd)
   else
-    None
+    None;;
+
+
+let print_slope (p1: point) (p2: point) : unit =
+  match slope p1 p2 with 
+  | Some float -> print_string ("Slope: " ^ string_of_float float ^ "\n")
+  | None -> print_string "Vertical line.\n";;
