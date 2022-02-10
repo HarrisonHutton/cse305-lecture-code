@@ -69,3 +69,28 @@ let rec prods (xs : (int * int) list) : int list =
     let prod = x * y in 
       prod :: prods ls;;
 
+
+let y = Some (Some 1) in 
+  match y with 
+  | None -> false 
+  | Some x -> 
+    match x with 
+    | None -> false 
+    | Some z -> true;;
+
+(*
+  y computation in a more idiomatic way...
+*)
+
+let y = Some (Some 1) in 
+  match y with 
+  | None -> false 
+  | Some (Some x) -> true 
+  | Some (None) -> false;;
+
+
+(* More list pattern-matching *)
+let example = [1;2;3] in 
+  match example with 
+  | [] -> 0
+  | x :: xs -> x;;
