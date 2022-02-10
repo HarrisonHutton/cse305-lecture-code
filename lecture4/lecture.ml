@@ -94,3 +94,37 @@ let example = [1;2;3] in
   match example with 
   | [] -> 0
   | x :: xs -> x;;
+
+
+let rec given_rec (xs: int list) (ys: int list) : (int * int) list option =
+  match (xs, ys) with 
+  (* Handle different lengths *)
+  | ([], y::ys) -> None
+  | (x::xs, []) -> None
+  (* Handle same lengths *)
+  | ([], []) -> Some []
+  | (x::xs, y::ys) -> 
+    match given_rec xs ys with 
+    (* Different tail lengths*)
+    | None -> None
+    (* Valid length tails*)
+    | Some zs -> Some ((x,y) :: zs);;
+
+
+let rec alternate_rec (xs: int list) (ys: int list) : (int * int) list option =
+  match (xs, ys) with 
+  (* Handle same lengths *)
+  | ([], []) -> Some []
+  | (x::xs, y::ys) -> 
+    (match given_rec xs ys with 
+      (* Different tail lengths*)
+      | None -> None
+      (* Valid length tails*)
+      | Some zs -> Some ((x,y) :: zs))
+  (* Handle different lengths *)
+  | (_, _) -> None;;
+
+(* Invalid code because the base case of xs == [] is not covered *)
+(* let rec sum (xs : int list) : int =
+  match xs with 
+  | hd::tl -> hd + sum tl;; *)
