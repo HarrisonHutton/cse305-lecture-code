@@ -109,6 +109,21 @@ let d = [ Formatted (Bold, Formatted (Font "Arial", Words ["Chapter"; "One"]));
 
 (* Change all the Arial fonts to Courier *)
 
-let change_font doc font = 
+let rec change_markup (m: markup) (font: string) : markup =
+  match m with 
+  | Font "Arial" -> Font font 
+  | _ -> m;;
+
+let rec change_font (e: elt) (font: string) : elt = 
+  match e with 
+  | Words ws -> Words ws
+  | Formatted (m, e) -> 
+    Formatted (change_markup m font, change_font e font);;
+
+let rec change_fonts (doc: doc) (font: string) : doc = 
   match doc with 
-  | 
+  | [] -> []
+  | hd::tl -> (change_font hd font)::(change_fonts tl font);;
+
+let new_doc = change_fonts d "Courier";;
+
